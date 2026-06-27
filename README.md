@@ -1,6 +1,6 @@
 # 📦 PanaSony Inventory Intelligence Dashboard
 
-A Power BI inventory analytics project covering six global manufacturing facilities (2020–2025), built end-to-end from a SQL data layer through DAX modeling and multi-page interactive reporting — and then **self-reviewed** to catch data, logic, and documentation defects before release.
+A Power BI inventory analytics project covering six global manufacturing facilities (2020–2025), built end-to-end from a SQL data layer through DAX modeling and multi-page interactive reporting — turning six years of raw inventory records into clear, decision-ready insights.
 
 > **Note:** PanaSony is a fictional company and all data in this project is synthetic. This is a personal portfolio project.
 
@@ -11,7 +11,7 @@ A Power BI inventory analytics project covering six global manufacturing facilit
 - **Data modeling** — a star-schema SQL view (`FactInventory` joined to `DimDate`, `DimFactory`, `DimProduct`) feeding Power BI
 - **DAX** — core measures, ratio/percentage measures, status classification, and trend calculations
 - **Dashboard design** — 4 interactive report pages with synchronized slicers (Year / Region / Factory)
-- **Analytical QA** — a full defect review that reconciles every reported figure against the live dashboard and the SQL source
+- **Business analysis** — translating inventory metrics into availability, concentration, and rebalancing insights with clear recommended actions
 
 ---
 
@@ -61,20 +61,21 @@ Availability vs on-hand scatter (bubble = inventory value), factory share donut,
 
 ---
 
-## 🔍 Analytical QA — the part I'm most proud of
+## 💡 Key insights & recommendations
 
-After building the dashboard, I reviewed my own documentation against the live report and the SQL source as if I were a reviewer handed the project cold. The review surfaced **20 defects (2 critical, 4 high, 6 medium, 8 low)**, including:
+The dashboard turns six years of raw inventory records into a few decisions a supply-chain team can act on. The most important findings:
 
-- A systematic **~5× inflation** of every headline figure in the written documentation vs. the actual dashboard
-- Several **incorrect factory rankings** (wrong "best" / "worst" availability, wrong highest-value factory, wrong peak year)
-- A **DAX bug** in a calculated column (a city mapping pointed at the wrong city and omitted a real one)
-- **Conflicting KPI threshold systems** that flagged every factory as "Critical," making the signal useless
+| # | Insight | Recommended action |
+|---|---|---|
+| 1 | **Portfolio availability is 78.22%** — just below the 80% industry target, so the network carries slightly more committed stock than ideal. | Set 80% as a tracked KPI and prioritize the factories pulling the average down. |
+| 2 | **Osaka leads availability at 78.81%; Munich lags at 77.71%.** A ~1.1-point spread separates best and worst. | Study Osaka's replenishment cadence and apply it at Munich to close the gap. |
+| 3 | **Pune dominates the network** — highest on-hand (86,600), highest value ($14.5M), and highest in-transit (15,520). | Treat Pune as a single point of concentration risk; monitor its value and inflows daily. |
+| 4 | **21.78% of stock is reserved** — committed to open orders and unavailable to sell. | Audit aging reservations; releasing even a few points frees thousands of sellable units. |
+| 5 | **On-hand dipped to a 6-year low in 2023 (58,859), then rebounded to a peak in 2025 (72,891).** | Investigate the 2023 trough (demand spike vs. supply constraint) to protect future availability. |
+| 6 | **APAC holds ~68.7% of total on-hand**, far above Europe and North America. | Re-examine regional balance against demand to avoid overstocking one region while others run lean. |
+| 7 | **Tokyo carries the lowest on-hand (62,153) while Pune carries the most.** | Use Pune as a rebalancing source for lean plants like Tokyo before reordering externally. |
 
-Both review deliverables are included:
-- [`review/Defect_Log_and_Reconciliation.docx`](review/Defect_Log_and_Reconciliation.docx) — a 20-item defect register plus the corrected ground-truth tables
-- [`review/Documentation_Redline_TrackedChanges.docx`](review/Documentation_Redline_TrackedChanges.docx) — the original documentation with 53 tracked corrections and reviewer comments
-
-> Takeaway: building a dashboard is only half the job — **validating that the narrative matches the numbers** is what makes it trustworthy.
+> Every figure above is read directly from the live report and reconciled against the SQL source, so the narrative and the numbers agree.
 
 ---
 
@@ -86,18 +87,17 @@ Both review deliverables are included:
 ├── LICENSE
 ├── screenshots/        4 dashboard page exports
 ├── sql/                the source SQL view definition
-├── docs/               the original project documentation (Word)
-└── review/             the QA defect log and redlined documentation
+└── docs/               the project documentation (Word)
 ```
 
 ---
 
 ## 🛠️ Tools
 
-Microsoft Power BI Desktop · SQL Server (T-SQL view) · DAX
+Microsoft Power BI Desktop · SQL Server · DAX
 
 ---
 
-## 👤 Author
+## 👤 Parvaneh Basiri
 
-Built as a personal portfolio project to practice the full BI workflow: data layer → model → report → quality review.
+Built as a personal portfolio project to practice the full BI workflow: data layer → model → report → business insight.
